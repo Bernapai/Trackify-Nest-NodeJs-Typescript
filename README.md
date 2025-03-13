@@ -22,23 +22,20 @@
 
 ---
 
-## 📌 Endpoints principales
+## 🔑 **Autenticación**
+- `POST /auth/register` → Registrar usuario .
+- `POST /auth/login` → Iniciar sesión .
 
-### 🔑 **Autenticación**
-- `POST /auth/register` → Registrar usuario
-- `POST /auth/login` → Iniciar sesión
+---
 
-### 📦 **Gestión de envíos**
-- `POST /shipments` → Agregar un número de tracking
-- `GET /shipments` → Listar envíos del usuario
-- `GET /shipments/{trackingId}` → Obtener detalles de un envío
-- `DELETE /shipments/{trackingId}` → Eliminar un envío
+## 📦 **Gestión de envíos**
+- `POST /shipments` → Registrar un envío y generar un número de tracking aleatorio.
+- `GET /shipments` → Listar envíos registrados.
+- `GET /shipments/{trackingId}` → Obtener detalles de un envío.
+- `DELETE /shipments/{trackingId}` → Eliminar un envío.
 
-### 🚛 **Proveedores de mensajería**
-- `GET /providers` → Listar empresas de mensajería
-- `GET /providers/{provider}/track/{trackingId}` → Obtener estado de un paquete
+---
 
-### 🔔 **Notificaciones**
-- `POST /notifications` → Configurar alertas de cambios de estado
-- `GET /notifications` → Ver notificaciones activas
+## 🚛 **Proveedores de mensajería (Simulados)**
+- `GET /providers` → Listar empresas de mensajería disponibles.
 
