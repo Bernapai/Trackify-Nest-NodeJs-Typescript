@@ -3,11 +3,9 @@ import { ShipmentsModule } from './shipments/shipments.module';
 import { ProvidersModule } from './providers/providers.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { AuhController } from './auh/auh.controller';
-
+import { DatabaseModule } from './database/database.module';
 @Module({
-  imports: [ShipmentsModule, ProvidersModule, UsersModule, AuthModule],
-  controllers: [AuhController],
+  imports: [ShipmentsModule, ProvidersModule, UsersModule, AuthModule, DatabaseModule],
 })
 export class AppModule {
 }

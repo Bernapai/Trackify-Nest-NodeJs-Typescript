@@ -1,11 +1,11 @@
 import { Controller, Get, Post, Delete, Put } from '@nestjs/common';
 import { ProvidersServices } from './providers.services';
 
-@Controller({})
+@Controller('/providers')
 export class ProvidersController {
   constructor(private providersServices: ProvidersServices) { }
 
-  @Get('/providers')
+  @Get()
   getAllProviders() {
     return 'Devolviendo';
   }
@@ -15,12 +15,12 @@ export class ProvidersController {
     return 'Devolviendo por id';
   }
 
-  @Delete('/providers')
+  @Delete()
   deleteProvider() {
     return 'Eliminando';
   }
 
-  @Put('/providers')
+  @Put()
   updateProvider() {
     return 'actualizando';
   }

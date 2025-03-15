@@ -1,11 +1,11 @@
 import { Controller, Delete, Get, Post, Put } from '@nestjs/common';
 import { ShipmentsServices } from './shipments.services';
 
-@Controller({})
+@Controller('/shipments')
 export class ShipmentsController {
   constructor(private shipmentsServices: ShipmentsServices) { }
 
-  @Get('/shipment')
+  @Get()
   getAllShipments() {
     return 'Devolviendo';
   }
@@ -15,17 +15,17 @@ export class ShipmentsController {
     return 'Devolviendo por id';
   }
 
-  @Post('/shipment')
+  @Post()
   postShipment() {
     return 'creando';
   }
 
-  @Delete('/shipment')
+  @Delete()
   deleteShipment() {
     return 'Eliminando';
   }
 
-  @Put('/shipment')
+  @Put()
   updateShipments() {
     return 'actualizando';
   }
