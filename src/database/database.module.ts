@@ -10,7 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'postgres',
       password: 'Juanber123()',
       database: 'trackify',
-      entities: [],
+      entities: [__dirname + '/../**/*.entity.ts'],
       synchronize: false,
     }),
   ],
