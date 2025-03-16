@@ -11,7 +11,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       password: 'Juanber123()',
       database: 'trackify',
       entities: [__dirname + '/../**/*.entity.ts'],
-      synchronize: false,
+      synchronize: true,
     }),
   ],
 })

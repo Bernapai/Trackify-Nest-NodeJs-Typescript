@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import Provider from 'src/providers/providers.entity'; // Importa la entidad Provider
 
-@Entity()
+@Entity('shipments')
 class Shipment {
   @PrimaryGeneratedColumn()
   id: number;
