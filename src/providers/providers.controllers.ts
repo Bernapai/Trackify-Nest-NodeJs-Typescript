@@ -1,27 +1,49 @@
-import { Controller, Get, Post, Delete, Put } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
 import { ProvidersServices } from './providers.services';
+import Provider from './providers.entity';
 
-@Controller('/providers')
+@Controller('providers')
 export class ProvidersController {
-  constructor(private providersServices: ProvidersServices) { }
+  constructor(private readonly providersService: ProvidersServices) { }
 
+  // Obtener todos los proveedores
   @Get()
-  getAllProviders() {
-    return 'Devolviendo';
+  async getAll(): Promise<Provider[]> {
+    return await this.providersService.getAll();
   }
 
-  @Get('/providers/id')
-  getProvider() {
-    return 'Devolviendo por id';
+  // Obtener un proveedor por ID
+  @Get(':id')
+  async getOne(@Param('id') id: number): Promise<Provider | null> {
+    return await this.providersService.getOne(id);
   }
 
-  @Delete()
-  deleteProvider() {
-    return 'Eliminando';
+  // Crear un nuevo proveedor
+  @Post()
+  async create(@Body() data: Partial<Provider>): Promise<Provider> {
+    return await this.providersService.create(data);
   }
 
-  @Put()
-  updateProvider() {
-    return 'actualizando';
+  // Actualizar un proveedor por ID
+  @Put(':id')
+  async update(
+    @Param('id') id: number,
+    @Body() data: Partial<Provider>,
+  ): Promise<Provider | null> {
+    return await this.providersService.update(id, data);
+  }
+
+  // Eliminar un proveedor por ID
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<boolean> {
+    return await this.providersService.delete(id);
   }
 }

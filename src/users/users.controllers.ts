@@ -1,32 +1,35 @@
-import { Controller, Get, Post, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Put, Delete, Param, Body } from '@nestjs/common';
 import { UsersServices } from './users.services';
+import User from './users.entity';
 
-@Controller('/users')
+@Controller('users')
 export class UsersController {
-  constructor(private usersServices: UsersServices) { }
+  constructor(private readonly usersService: UsersServices) { }
 
+  // Obtener todos los usuarios
   @Get()
-  getAllUsers() {
-    return 'Devolviendo';
+  async getAll(): Promise<User[]> {
+    return await this.usersService.getAll();
   }
 
-  @Get('/users/id')
-  getUser() {
-    return 'Devolviendo por id';
+  // Obtener un usuario por ID
+  @Get(':id')
+  async getOne(@Param('id') id: number): Promise<User | null> {
+    return await this.usersService.getOne(id);
   }
 
-  @Post()
-  postUser() {
-    return 'creando';
+  // Actualizar un usuario por ID
+  @Put(':id')
+  async update(
+    @Param('id') id: number,
+    @Body() data: Partial<User>,
+  ): Promise<User | null> {
+    return await this.usersService.update(id, data);
   }
 
-  @Delete()
-  deleteUser() {
-    return 'Eliminando';
-  }
-
-  @Put()
-  updateUser() {
-    return 'actualizando';
+  // Eliminar un usuario por ID
+  @Delete(':id')
+  async delete(@Param('id') id: number): Promise<boolean> {
+    return await this.usersService.delete(id);
   }
 }
