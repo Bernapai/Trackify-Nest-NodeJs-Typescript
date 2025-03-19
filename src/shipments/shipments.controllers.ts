@@ -9,6 +9,8 @@ import {
 } from '@nestjs/common';
 import { ShipmentsServices } from './shipments.services';
 import Shipment from './shipments.entity';
+import { ShipmentsCreateDto } from './dto/createShipments.dto';
+import { ShipmentsUpdateDto } from './dto/updateShipments.dto';
 
 @Controller('shipments')
 export class ShipmentsController {
@@ -28,7 +30,9 @@ export class ShipmentsController {
 
   // Crear un nuevo envío
   @Post()
-  async create(@Body() data: Partial<Shipment>): Promise<Shipment> {
+  async create(
+    @Body() data: ShipmentsCreateDto, // Usamos el DTO de creación aquí
+  ): Promise<Shipment> {
     return await this.shipmentsService.create(data);
   }
 
@@ -36,7 +40,7 @@ export class ShipmentsController {
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() data: Partial<Shipment>,
+    @Body() data: ShipmentsUpdateDto, // Usamos el DTO de actualización aquí
   ): Promise<Shipment | null> {
     return await this.shipmentsService.update(id, data);
   }

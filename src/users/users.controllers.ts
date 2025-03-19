@@ -1,6 +1,7 @@
 import { Controller, Get, Put, Delete, Param, Body } from '@nestjs/common';
 import { UsersServices } from './users.services';
 import User from './users.entity';
+import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Controller('users')
 export class UsersController {
@@ -22,7 +23,7 @@ export class UsersController {
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() data: Partial<User>,
+    @Body() data: UpdateUserDto, // Usamos el DTO UpdateUserDto aquí
   ): Promise<User | null> {
     return await this.usersService.update(id, data);
   }

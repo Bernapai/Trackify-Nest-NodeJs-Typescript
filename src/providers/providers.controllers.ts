@@ -6,9 +6,12 @@ import {
   Delete,
   Param,
   Body,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { ProvidersServices } from './providers.services';
 import Provider from './providers.entity';
+import { CreateProviderDto } from './dto/createProviders.dto';
+import { UpdateProviderDto } from './dto/updateProviders.dto';
 
 @Controller('providers')
 export class ProvidersController {
@@ -22,28 +25,30 @@ export class ProvidersController {
 
   // Obtener un proveedor por ID
   @Get(':id')
-  async getOne(@Param('id') id: number): Promise<Provider | null> {
+  async getOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Provider | null> {
     return await this.providersService.getOne(id);
   }
 
-  // Crear un nuevo proveedor
+  // Crear un nuevo proveedor (Usando CreateProviderDto)
   @Post()
-  async create(@Body() data: Partial<Provider>): Promise<Provider> {
+  async create(@Body() data: CreateProviderDto): Promise<Provider> {
     return await this.providersService.create(data);
   }
 
-  // Actualizar un proveedor por ID
+  // Actualizar un proveedor por ID (Usando UpdateProviderDto)
   @Put(':id')
   async update(
-    @Param('id') id: number,
-    @Body() data: Partial<Provider>,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() data: UpdateProviderDto,
   ): Promise<Provider | null> {
     return await this.providersService.update(id, data);
   }
 
   // Eliminar un proveedor por ID
   @Delete(':id')
-  async delete(@Param('id') id: number): Promise<boolean> {
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<boolean> {
     return await this.providersService.delete(id);
   }
 }
