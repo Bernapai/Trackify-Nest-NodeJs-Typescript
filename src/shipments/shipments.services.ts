@@ -1,7 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import Shipment from './shipments.entity';
+import { ShipmentsCreateDto } from './dto/createShipments.dto';
+import { ShipmentsUpdateDto } from './dto/updateShipments.dto';
+import { validate } from 'class-validator';
 
 @Injectable()
 export class ShipmentsServices {
@@ -20,14 +23,24 @@ export class ShipmentsServices {
     return await this.shipmentRepository.findOne({ where: { id } });
   }
 
-  // Crear un nuevo envío
-  async create(data: Partial<Shipment>): Promise<Shipment> {
+  // Crear un nuevo envío con validación DTO
+  async create(data: ShipmentsCreateDto): Promise<Shipment> {
+    const errors = await validate(data);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+
     const newShipment = this.shipmentRepository.create(data);
     return await this.shipmentRepository.save(newShipment);
   }
 
-  // Actualizar un envío por ID
-  async update(id: number, data: Partial<Shipment>): Promise<Shipment | null> {
+  // Actualizar un envío por ID con validación DTO
+  async update(id: number, data: ShipmentsUpdateDto): Promise<Shipment | null> {
+    const errors = await validate(data);
+    if (errors.length > 0) {
+      throw new BadRequestException(errors);
+    }
+
     await this.shipmentRepository.update(id, data);
     return this.getOne(id);
   }
