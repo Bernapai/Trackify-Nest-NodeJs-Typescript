@@ -7,13 +7,16 @@ import {
   Param,
   Body,
   ParseIntPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ProvidersServices } from './providers.services';
 import Provider from './providers.entity';
 import { CreateProviderDto } from './dto/createProviders.dto';
 import { UpdateProviderDto } from './dto/updateProviders.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('providers')
+@UseGuards(JwtAuthGuard) // Esto protegerá todas las rutas del controlador
 export class ProvidersController {
   constructor(private readonly providersService: ProvidersServices) { }
 

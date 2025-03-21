@@ -15,9 +15,19 @@ export class UsersServices {
     return await this.userRepository.find();
   }
 
+  async register(data: Partial<User>): Promise<User> {
+    const newUser = this.userRepository.create(data);
+    return await this.userRepository.save(newUser);
+  }
+
   // Obtener un solo usuario por ID
   async getOne(id: number): Promise<User | null> {
     return await this.userRepository.findOne({ where: { id } });
+  }
+
+  // Obtener un solo usuario por nombre
+  async findByName(name: string): Promise<User | null> {
+    return await this.userRepository.findOne({ where: { name } });
   }
 
   // Actualizar un usuario por ID
